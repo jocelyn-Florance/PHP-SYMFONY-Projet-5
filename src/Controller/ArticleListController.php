@@ -2,10 +2,21 @@
 
 namespace App\Controller;
 
-class ArticleListController
+/**
+ * Class ArticleListController
+ * @package App\Controller
+ */
+class ArticleListController extends Controller
 {
-    public function indexAction()
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function index()
     {
-        echo 'liste article';
+        echo $this->getTwig()->render('article_list.html.twig', [
+        ]);
     }
+
 }

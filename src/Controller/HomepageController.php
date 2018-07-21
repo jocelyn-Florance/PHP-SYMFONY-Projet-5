@@ -1,12 +1,22 @@
 <?php
 namespace App\Controller;
 
-class HomepageController
+/**
+ * Class HomepageController
+ * @package App\Controller
+ */
+class HomepageController extends Controller
 {
 
-    public function indexAction()
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function index()
     {
-        echo 'homepage';
+        echo $this->getTwig()->render('homepage.html.twig', [
+        ]);
     }
 
 }
