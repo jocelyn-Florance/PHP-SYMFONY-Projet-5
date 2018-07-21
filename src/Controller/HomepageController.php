@@ -16,6 +16,7 @@ class HomepageController extends Controller
     public function index()
     {
         echo $this->getTwig()->render('homepage.html.twig', [
+            'session' => $_SESSION
         ]);
     }
 

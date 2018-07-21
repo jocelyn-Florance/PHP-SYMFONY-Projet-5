@@ -5,5 +5,81 @@
 {% endblock %}
 
 {%  block body %}
-    <h1>Article {{ id }}</h1>
+
+    {% if session.erreur == true %}
+        <p style="margin-top: 10px;" class="{{ session.erreur.type }} alert text-center">{{ session.erreur.content }}</p>
+    {% endif %}
+
+    <div class="container">
+
+
+    {% for article in article %}
+
+        <div style="margin-top: 44px; margin-bottom: 20px;" class="card">
+            <h5 class="card-header">{{ article.titre }}
+
+                {% if session.role == 'admin' %}
+                    <div class="dropdown show float-right">
+                        <a class="btn btn-sm btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="/administration/article-edit/{{ article.id }}/{{ session.token }}">Modifier</a>
+                            <a class="dropdown-item" href="/administration/article-delete/{{ article.id }}/{{ session.token }}">Suprimer</a>
+                        </div>
+                    </div>
+                {% endif %}
+
+            </h5>
+
+            <div class="card-body">
+                <h5 class="card-title">{{ article.chapo }}</h5>
+                <p class="card-text">{{ article.contenu }}</p>
+                <em class="blockquote-footer float-right">{{ article.auteur }}</em>
+            </div>
+            <div class="card-footer text-muted">
+                <em>Dernière modification {{ article.update }} </em>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+    {% for comment in comment %}
+
+        {% if comment.valider == 1 %}
+
+            <div style="margin-bottom: 15px;" class="card">
+                <div class="card-header">
+                    {{ comment.auteur }}
+
+                    {% if session.role == 'admin' %}
+                        <div class="dropdown show float-right">
+                            <a class="btn btn-sm btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cog"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="/administration/article-edit/{{ comment.id }}/{{ session.token }}">Modifier</a>
+                                <a class="dropdown-item" href="/administration/article-delete/{{ comment.id }}/{{ session.token }}">Suprimer</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="card-body">
+                    <p class="card-text">{{ comment.contenu }}</p>
+                </div>
+            </div>
+
+        {% endif %}
+
+    {% endfor %}
+
+        <div style="margin-bottom: 150px;">
+
+        </div>
+
+
+    </div>
+
 {% endblock %}

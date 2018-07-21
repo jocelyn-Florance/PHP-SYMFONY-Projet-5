@@ -10,7 +10,7 @@ return [
     ],
 
     'Article List' => [
-        'path' => '/liste-article',
+        'path' => '/liste-articles',
         'method' => 'GET',
         'action' => \App\Controller\ArticleListController::class,
         'params' => []

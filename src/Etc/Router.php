@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Etc;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Class Router
@@ -32,7 +33,7 @@ class Router
 
     public function loadRoute()
     {
-        $routes = require __DIR__ . './../config/routes/routes.php';
+        $routes = require __DIR__ . './../../config/routes/routes.php';
         foreach ($routes as $route) {
             $this->routes[$route['method']][] = new Route($route['path'], $route['method'], $route['action'], $route['params']);
         }
@@ -46,14 +47,16 @@ class Router
     {
 
         if(!isset($this->routes[$this->request->getMethod()])) {
-            header('Location: /404');
+            $response = new RedirectResponse('/404');
+            return $response->send();
         }
         foreach($this->routes[$this->request->getMethod()] as $route ) {
             if($route->match($this->request->getPathInfo())) {
                 return $route->call();
             }
         }
-        header('Location: /404');
+        $response = new RedirectResponse('/404');
+        return $response->send();
     }
 
 }

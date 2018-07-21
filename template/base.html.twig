@@ -3,9 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {% block head %}{% endblock %}
 </head>
 <body>
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#"><h1 style="font-size: 25px;">Bienvenue sur le Blog </h1></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Homepage</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/liste-articles">Liste article</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">CV</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+
+                {% if session.role == true %}
+                    <li style="margin-right: 20px;" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bonjour {{ session.prenon }}</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown10">
+                            <a class="dropdown-item" href="/administration/{{ session.token }}">Administration</a>
+                            <a class="dropdown-item" href="/deconexion">Deconection</a>
+                        </div>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </nav>
+</header>
+
+
 {% block body %}{% endblock %}
+
+
+<style>
+    html {
+        position: relative;
+        min-height: 100%;
+    }
+    body {
+        margin-bottom: 60px;
+    }
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+        background-color: #f5f5f5;
+    }
+
+
+    body > .container {
+        padding: 60px 15px 0;
+    }
+
+    .footer > .container {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    code {
+        font-size: 80%;
+    }
+
+    @media (max-width: 491px) {
+        .media-footer { height: 120px;  }
+    }
+</style>
+
+<footer class="footer bg-dark media-footer">
+    <div class="container">
+        <span class="text-muted">Copyright © Jocelyn 2018   <em><a href="/authentification">Administration</a> </em></span>
+
+        <span class="float-right">
+            <a href="#"><i class="fa fa-facebook-square fa-2x "></i></a>
+            <a href="#"><i class="fa fa-twitter-square fa-2x "></i></a>
+            <a href="#"><i class="fa fa-google-plus-square fa-2x "></i></a>
+            <a href="#"><i class="fa fa-envelope-square fa-2x "></i></a>
+            <a href=""> <i class="fa fa-github-square fa-2x"></i></a>
+        </span>
+
+    </div>
+</footer>
+
 </body>
 </html>
