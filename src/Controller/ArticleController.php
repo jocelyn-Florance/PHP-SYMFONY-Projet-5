@@ -2,13 +2,27 @@
 
 namespace App\Controller;
 
-
-class ArticleController
+/**
+ * Class ArticleController
+ * @package App\Controller
+ */
+class ArticleController extends Controller
 {
 
-    public function indexAction()
+    /**
+     * @param $params
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function index($params)
     {
-        echo 'Article';
+
+        $id = $params[0];
+
+        echo $this->getTwig()->render('article.html.twig', [
+            'id' => $id
+        ]);
     }
 
 }

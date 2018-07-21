@@ -33,7 +33,6 @@ class Router
     public function loadRoute()
     {
         $routes = require __DIR__ . './../config/routes/routes.php';
-
         foreach ($routes as $route) {
             $this->routes[$route['method']][] = new Route($route['path'], $route['method'], $route['action'], $route['params']);
         }
@@ -46,14 +45,11 @@ class Router
     public function runApp()
     {
 
-        if(!isset($this->routes[$this->request->getMethod()]))
-        {
+        if(!isset($this->routes[$this->request->getMethod()])) {
             header('Location: /404');
         }
-        foreach($this->routes[$this->request->getMethod()] as $route )
-        {
-            if($route->match($this->request->getPathInfo()))
-            {
+        foreach($this->routes[$this->request->getMethod()] as $route ) {
+            if($route->match($this->request->getPathInfo())) {
                 return $route->call();
             }
         }

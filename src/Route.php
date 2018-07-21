@@ -60,8 +60,7 @@ class Route
         $path = preg_replace_callback('#{([\w]+)}#', [$this, 'paramMatch'], $this->path);
         $regex = "#^$path$#i";
 
-        if (!preg_match($regex, $getPathInfo, $matches))
-        {
+        if (!preg_match($regex, $getPathInfo, $matches)) {
             return false;
         }
         array_shift($matches);
@@ -74,10 +73,9 @@ class Route
      * @param $matche
      * @return string
      */
-    private function paramMatch($matche)
+    public function paramMatch($matche)
     {
-        if(isset($this->params[$matche[1]]))
-        {
+        if(isset($this->params[$matche[1]])) {
             return '(' . $this->params[$matche[1]] . ')';
         }
         return '([^/]+)';
@@ -91,11 +89,9 @@ class Route
         $controller = new $this->action;
         $params = count($this->matches);
 
-        if($params == 0 )
-        {
-            return $controller->indexAction();
-        } else {
-            return $controller->indexAction($this->matches);
+        if($params >= 1 ) {
+            return $controller->index($this->matches);
         }
+        return $controller->index();
     }
 }
