@@ -1,6 +1,10 @@
 <?php
 namespace App\Entity;
 
+/**
+ * Class Article
+ * @package App\Entity
+ */
 class Article
 {
     private $id;

@@ -20,48 +20,27 @@
                     <h1 class="card-title">Florance Jocelyn</h1>
                     <h2 style="font-size: 22px; margin-bottom: 30px;">Developeur Symfony PHP</h2>
                     <p class="card-text">Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.</p>
+
                 </div>
                </div>
             </div>
 
         </div>
 
+
+
         <div class="container">
          <div class="col-md-12 mb-4">
             <div class="card">
                 <div class="card-body">
 
-                    <form action="" method="POST">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="nom">Nom</label>
-                                <input type="text" class="form-control" name="nom" id="nom" placeholder="Nom" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="prenom">Prénom</label>
-                                <input type="text" class="form-control" name="prenom" id="prenom" placeholder="Prénom" required>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea class="form-control" id="message" name="message" placeholder="Taper votre message" rows="4" required></textarea>
-                            <small class="form-text text-muted">
-                                Votre message peut contenir 500 caractères au maximum.
-                            </small>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Envoyer</button>
-                    </form>
-
-                    {% if erreur == true %}
-                        {% autoescape %}
-                            {{ erreur|raw }}
-                        {% endautoescape %}
+                    {% if session.erreur == true %}
+                        <p style="margin-top: 10px;" class="{{ session.erreur.type }} alert text-center">{{ session.erreur.content }} <i class="fa fa-spinner fa-spin" style="font-size:20px"></i>  </p>
                     {% endif %}
+
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
 
                 </div>
             </div>

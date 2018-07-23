@@ -9,6 +9,13 @@ return [
         'params' => []
     ],
 
+    'Hommepage Post' => [
+        'path' => '/',
+        'method' => 'POST',
+        'action' => \App\Controller\HomepageController::class,
+        'params' => []
+    ],
+
     'Article List' => [
         'path' => '/liste-articles',
         'method' => 'GET',

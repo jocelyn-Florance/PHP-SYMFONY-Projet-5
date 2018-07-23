@@ -2,6 +2,7 @@
 
 namespace App\Etc;
 
+
 /**
  * Class Route
  * @package Etc

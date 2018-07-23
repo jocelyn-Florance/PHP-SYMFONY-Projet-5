@@ -33,7 +33,7 @@ class Router
 
     public function loadRoute()
     {
-        $routes = require __DIR__ . './../../config/routes/routes.php';
+        $routes = require __DIR__ . './../../config/routes/Routes.php';
         foreach ($routes as $route) {
             $this->routes[$route['method']][] = new Route($route['path'], $route['method'], $route['action'], $route['params']);
         }

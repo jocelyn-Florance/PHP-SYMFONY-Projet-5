@@ -9,7 +9,12 @@
     "require": {
         "php": "^7.1.7",
         "twig/twig": "^2.0",
-        "symfony/http-foundation": "^4.1"
+        "symfony/http-foundation": "^4.1",
+        "symfony/form": "^4.1",
+        "symfony/validator": "^4.1",
+        "symfony/twig-bridge": "^4.1",
+        "symfony/security-csrf": "^4.1",
+        "swiftmailer/swiftmailer": "^6.0"
     },
 
     "require-dev":{

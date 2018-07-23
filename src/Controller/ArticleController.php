@@ -12,7 +12,7 @@ class ArticleController extends Controller
 {
 
     /**
-     * @param $params
+     * @param array $params
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -28,7 +28,6 @@ class ArticleController extends Controller
         echo $this->getTwig()->render('article.html.twig', [
             'article' => $article,
             'comment' => $comment
-
         ]);
     }
 

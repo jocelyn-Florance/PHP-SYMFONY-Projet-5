@@ -1,7 +1,16 @@
 <?php
 namespace App\Traits;
 
-use Twig_Loader_Filesystem;
+use Symfony\Bridge\Twig\Extension\FormExtension;
+use Symfony\Bridge\Twig\Extension\TranslationExtension;
+use Symfony\Bridge\Twig\Form\TwigRendererEngine;
+use Symfony\Component\Form\FormRenderer;
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
+use Symfony\Component\Translation\Loader\XliffFileLoader;
+use Symfony\Component\Translation\Translator;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+use Twig\RuntimeLoader\FactoryRuntimeLoader;
 use Twig_Environment;
 
 /**
@@ -34,10 +43,39 @@ trait Twig
      */
     public function getTwig()
     {
-        $loader = new Twig_Loader_Filesystem([
-            $this->parameters['views_folder']
-        ]);
-        return new Twig_Environment($loader);
+
+        $csrfTokenManager = new CsrfTokenManager();
+        $defaultFormTheme = 'bootstrap_4_layout.html.twig';
+
+        $appVariableReflection = new \ReflectionClass('\Symfony\Bridge\Twig\AppVariable');
+        $vendorTwigBridgeDirectory = dirname($appVariableReflection->getFileName());
+
+        $loader = new Environment(new FilesystemLoader(array(
+            $this->parameters['views_folder'],
+            $vendorTwigBridgeDirectory.'/Resources/views/Form'
+        )));
+        $formEngine = new TwigRendererEngine(array($defaultFormTheme), $loader);
+        $loader->addRuntimeLoader(new FactoryRuntimeLoader(array(
+            FormRenderer::class => function () use ($formEngine, $csrfTokenManager) {
+                return new FormRenderer($formEngine, $csrfTokenManager);
+            }
+        )));
+
+        $translator = new Translator('fr_FR');
+
+        $translator->addLoader('xlf', new XliffFileLoader());
+        $translator->addResource(
+            'xlf',
+            '/translations/messages.fr.xlf',
+            'fr_FR'
+        );
+
+        $loader->addExtension(new FormExtension());
+        $loader->addExtension(new TranslationExtension($translator));
+
+
+        return $loader;
+
     }
 }
 
