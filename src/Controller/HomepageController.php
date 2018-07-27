@@ -13,16 +13,17 @@ class HomepageController extends Controller
 {
 
     /**
+     * @throws \ReflectionException
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
     public function index()
     {
-           unset($_SESSION['erreur']);
+           $_SESSION['erreur'] = [];
 
-           $instance = new FormContact();
-           $form = $instance->formContact();
+           $instanceForm = new FormContact();
+           $form = $instanceForm->formContact();
 
         if (isset($_POST[$form->getName()])) {
             $form->submit($_POST[$form->getName()]);
@@ -32,19 +33,18 @@ class HomepageController extends Controller
                  $nom = $data->nom();
                  $prenon = $data->prenon();
                  $email = $data->email();
-                 $message = $data->message();
+                 $contenu = $data->message();
 
-                $instanceEmail = new Form();
-                $mailer = $instanceEmail->emailTransport();
+                 $instanceEmail = new Form();
+                 $mailer = $instanceEmail->emailTransport();
 
                 $message = (new \Swift_Message($email))
                     ->setFrom([$email => $nom . '-' . $prenon])
                     ->setTo(['jocelyn.florancepro@gmail.com' => 'Jocelyn'])
-                    ->setBody($message)
-                ;
+                    ->setBody($contenu);
 
                 $mailer->send($message);
-                $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Envoi du message en cour vous allez etre redirigé'];
+                $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Envoi du message en cour vous allez être redirigé'];
                 header('Refresh: 3');
 
             }
@@ -52,7 +52,7 @@ class HomepageController extends Controller
 
         echo $this->getTwig()->render('homepage.html.twig', [
             'session' => $_SESSION,
-            'form' => $form->createView(),
+            'form' => $form->createView()
             ]);
     }
 

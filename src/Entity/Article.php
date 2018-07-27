@@ -96,7 +96,7 @@ class Article
     public function setTitre($titre){
         if (is_string($titre) && strlen($titre) <= 30)
         {
-            $this->titre = $titre;
+            $this->titre = htmlspecialchars($titre);
         }
     }
 
@@ -106,7 +106,7 @@ class Article
     public function setChapo($chapo){
         if (is_string($chapo) && strlen($chapo) <= 300)
         {
-            $this->chapo = $chapo;
+            $this->chapo = htmlspecialchars($chapo);
         }
     }
 
@@ -116,7 +116,7 @@ class Article
     public function setContenu($contenu){
         if (is_string($contenu) && strlen($contenu) <= 900)
         {
-            $this->contenu = $contenu;
+            $this->contenu = htmlspecialchars($contenu);
         }
     }
 
@@ -126,7 +126,7 @@ class Article
     public function setAuteur($auteur){
         if (is_string($auteur) && strlen($auteur) <= 30)
         {
-            $this->auteur = $auteur;
+            $this->auteur = htmlspecialchars($auteur);
         }
     }
 

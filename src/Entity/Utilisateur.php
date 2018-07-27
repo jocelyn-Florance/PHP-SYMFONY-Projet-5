@@ -3,18 +3,20 @@
 namespace App\Entity;
 
 /**
- * Class Contact
+ * Class Utilisateur
  * @package App\Entity
  */
-class Contact
+class Utilisateur
 {
-    private $nom;
+    private $id;
     private $prenon;
+    private $nom;
+    private $mdp;
     private $email;
-    private $message;
+    private $role;
 
     /**
-     * Contact constructor.
+     * Utilisateur constructor.
      * @param array $data
      */
     public function __construct(array $data)
@@ -41,9 +43,9 @@ class Contact
     /**
      * @return mixed
      */
-    public function nom()
+    public function id()
     {
-        return $this->nom;
+        return $this->id;
     }
 
     /**
@@ -57,6 +59,22 @@ class Contact
     /**
      * @return mixed
      */
+    public function nom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function mdp()
+    {
+        return $this->mdp;
+    }
+
+    /**
+     * @return mixed
+     */
     public function email()
     {
         return $this->email;
@@ -65,17 +83,17 @@ class Contact
     /**
      * @return mixed
      */
-    public function message()
+    public function role()
     {
-        return $this->message;
+        return $this->role;
     }
 
     /**
-     * @param $nom
+     * @param $id
      */
-    public function setNom($nom)
+    public function setId($id)
     {
-        $this->nom = htmlspecialchars($nom);
+        $this->id = $id;
     }
 
     /**
@@ -83,7 +101,23 @@ class Contact
      */
     public function setPrenon($prenon)
     {
-        $this->prenon = htmlspecialchars($prenon);
+        $this->prenon = $prenon;
+    }
+
+    /**
+     * @param $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @param $mdp
+     */
+    public function setMdp($mdp)
+    {
+        $this->mdp = $mdp;
     }
 
     /**
@@ -91,15 +125,15 @@ class Contact
      */
     public function setEmail($email)
     {
-        $this->email = htmlspecialchars($email);
+        $this->email = $email;
     }
 
     /**
-     * @param $message
+     * @param $role
      */
-    public function setMessage($message)
+    public function setRole($role)
     {
-        $this->message = htmlspecialchars($message);
+        $this->role = $role;
     }
 
 }

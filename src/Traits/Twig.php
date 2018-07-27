@@ -20,9 +20,6 @@ use Twig_Environment;
 trait Twig
 {
 
-    /**
-     * @var
-     */
     private $parameters;
 
     /**
@@ -33,13 +30,15 @@ trait Twig
         $this->getParameters();
     }
 
+
     public function getParameters()
     {
         $this->parameters = require __DIR__ . './../../config/twig/Twig.php';
     }
 
     /**
-     * @return Twig_Environment
+     * @return Environment
+     * @throws \ReflectionException
      */
     public function getTwig()
     {
@@ -72,7 +71,6 @@ trait Twig
 
         $loader->addExtension(new FormExtension());
         $loader->addExtension(new TranslationExtension($translator));
-
 
         return $loader;
 

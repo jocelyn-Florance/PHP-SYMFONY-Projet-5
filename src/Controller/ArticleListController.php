@@ -12,6 +12,7 @@ use App\Repository\ArticleListRepository;
 class ArticleListController extends Controller
 {
     /**
+     * @throws \ReflectionException
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -19,11 +20,11 @@ class ArticleListController extends Controller
     public function index()
     {
 
-        $instance = new ArticleListRepository();
-        $getArticle = $instance->listArticle();
-
+        $instanceRepo = new ArticleListRepository();
+        $getArticle = $instanceRepo->listArticle();
 
         echo $this->getTwig()->render('article_list.html.twig', [
+            'session' => $_SESSION,
             'article' => $getArticle
         ]);
     }

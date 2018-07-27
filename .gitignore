@@ -4,3 +4,5 @@
 /config/twig
 /.idea
 /composer.lock
+/config/swiftmailer
+/public/build/DataTables

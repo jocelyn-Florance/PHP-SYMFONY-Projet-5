@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="">
+    <meta name="author" content="Jocelyn">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/build/Css/blog.css">
     {% block head %}{% endblock %}
 </head>
 <body>
@@ -31,7 +35,7 @@
 
                 {% if session.role == true %}
                     <li style="margin-right: 20px;" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bonjour {{ session.prenon }}</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bonjour {{ session.prenon }}</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown10">
                             <a class="dropdown-item" href="/administration/{{ session.token }}">Administration</a>
                             <a class="dropdown-item" href="/deconexion">Deconection</a>
@@ -44,60 +48,32 @@
     </nav>
 </header>
 
-
 {% block body %}{% endblock %}
-
-
-<style>
-    html {
-        position: relative;
-        min-height: 100%;
-    }
-    body {
-        margin-bottom: 60px;
-    }
-    .footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 60px;
-        line-height: 60px;
-        background-color: #f5f5f5;
-    }
-
-
-    body > .container {
-        padding: 60px 15px 0;
-    }
-
-    .footer > .container {
-        padding-right: 15px;
-        padding-left: 15px;
-    }
-
-    code {
-        font-size: 80%;
-    }
-
-    @media (max-width: 491px) {
-        .media-footer { height: 120px;  }
-    }
-</style>
 
 <footer class="footer bg-dark media-footer">
     <div class="container">
-        <span class="text-muted">Copyright © Jocelyn 2018   <em><a href="/authentification">Administration</a> </em></span>
+        <span class="text-muted">Copyright © Jocelyn 2018 <em>
+                {% if session.role == 'admin' %}
+                    <a href="/administration/{{ session.token }}">Administration</a>
+                {% else %}
+                    <a href="/authentification">Administration</a>
+                {% endif %}
+            </em></span>
 
         <span class="float-right">
-            <a href="#"><i class="fa fa-facebook-square fa-2x "></i></a>
-            <a href="#"><i class="fa fa-twitter-square fa-2x "></i></a>
-            <a href="#"><i class="fa fa-google-plus-square fa-2x "></i></a>
-            <a href="#"><i class="fa fa-envelope-square fa-2x "></i></a>
-            <a href=""> <i class="fa fa-github-square fa-2x"></i></a>
+            <a href="#"><i class="fab fa-facebook-square fa-2x fond_facebook social-fb social"></i></a>
+            <a href="#"><i class="fab fa-twitter-square fa-2x fond_twitter social-tw social"></i></a>
+            <a href="#"><i class="fab fa-google-plus-square fa-2x fond_google_plus social-gp social"></i></a>
+            <a href="#"><i class="fas fa-envelope-square fa-2x fond_envelope social-em social"></i></a>
+            <a href="#"> <i class="fab fa-github-square fa-2x fond_gitHub social-git social"></i></a>
         </span>
 
     </div>
 </footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -8,9 +8,15 @@ use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Swift_SmtpTransport;
 
-
+/**
+ * Class Form
+ * @package App\Form
+ */
 class Form
 {
+    /**
+     * @return \Symfony\Component\Form\FormFactoryInterface
+     */
     public function formBuilder()
     {
         $csrfTokenManager = new CsrfTokenManager();
@@ -24,6 +30,9 @@ class Form
         return $formFactory;
     }
 
+    /**
+     * @return \Swift_Mailer
+     */
     public function emailTransport()
     {
         $config = require __DIR__ . './../../config/swiftmailer/swiftmailer.php';

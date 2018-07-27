@@ -3,8 +3,15 @@ namespace App\Repository;
 
 use App\Entity\Article;
 
+/**
+ * Class ArticleListRepository
+ * @package App\Repository
+ */
 class ArticleListRepository extends AbstractRepository
 {
+    /**
+     * @return array
+     */
     public function listArticle()
     {
 

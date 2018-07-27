@@ -1,0 +1,66 @@
+{% extends "Admin/baseAd.html.twig" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/build/DataTables/datatables.min.css"/>
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Dashboard</h1>
+        </div>
+
+
+        <h3 style="margin-bottom: 20px;">Article</h3>
+
+        <table class="table table-striped" id="myTable"  >
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Auteur</th>
+                <th scope="col">Update</th>
+                <th scope="col">Voir</th>
+                <th scope="col">Modifier</th>
+                <th scope="col">Suprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for article in article %}
+
+                <tr>
+                    <th scope="row">{{ article.id }}</th>
+                    <td>{{ article.titre }}</td>
+                    <td>{{ article.auteur }}</td>
+                    <td>{{ article.update }}</td>
+                    <td><button type="button" class="btn btn-success btn-sm"> <a style="text-decoration: none;  color: #fff2ce" href="/article/{{ article.id }}">Voir</a></button></td>
+                    <td><button type="button" class="btn btn-primary btn-sm"> <a style="text-decoration: none;  color: #fff2ce" href="/administration/article-edit/{{ article.id }}/{{ session.token }}">Modifier</a></button></td>
+                    <td><button type="button" class="btn btn-danger btn-sm"> <a style="text-decoration: none;  color: #fff2ce" href="/administration/article-delete/{{ article.id }}/{{ session.token }}">Suprimer</a></button></td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    <script type="text/javascript" src="/build/DataTables/datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('#myTable').DataTable({
+                language: { url: '/build/DataTables/Langue/French.json' } ,
+                "lengthMenu": [[10, 25, 50, 100 ], [10, 25, 50, 100 ]]
+            });
+            $('div.dataTables_filter input').attr('placeholder', 'Search...');
+        });
+    </script>
+{% endblock %}
