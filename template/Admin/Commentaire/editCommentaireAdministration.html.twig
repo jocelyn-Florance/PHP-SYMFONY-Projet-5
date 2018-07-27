@@ -1,0 +1,23 @@
+{% extends "Admin/baseAd.html.twig" %}
+
+{% block content %}
+
+
+    <div class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Dashboard</h1>
+        </div>
+
+        <div style="padding: 15px;">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+
+        {% if session.erreur == true %}
+            <p style="margin-top: 10px;" class="{{ session.erreur.type }} alert text-center">{{ session.erreur.content }} <i class="fa fa-spinner fa-spin" style="font-size:20px"></i>  </p>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

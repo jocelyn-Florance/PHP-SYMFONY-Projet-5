@@ -1,0 +1,72 @@
+{% extends "Admin/baseAd.html.twig" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/build/DataTables/datatables.min.css"/>
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Dashboard</h1>
+        </div>
+
+
+        <h3 style="margin-bottom: 20px;">Commentaire</h3>
+
+        <table class="table table-striped" id="myTable"  >
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Id article</th>
+                <th scope="col">Valider</th>
+                <th scope="col">Auteur</th>
+                <th scope="col">Update</th>
+                <th scope="col">Voir</th>
+                <th scope="col">Modifier</th>
+                <th scope="col">Suprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for commentaire in commentaire %}
+
+                <tr>
+                    <th scope="row">{{ commentaire.id }}</th>
+                    <td>{{ commentaire.id_article }}</td>
+                    {% if commentaire.valider == 1 %}
+                    <td class="badge badge-pill badge-success" style="margin-top: 8px;">{{ commentaire.valider }}</td>
+                    {% else %}
+                    <td class="badge badge-pill badge-danger" style="margin-top: 8px;">{{ commentaire.valider }}</td>
+                    {% endif %}
+                    <td>{{ commentaire.auteur }}</td>
+                    <td>{{ commentaire.update }}</td>
+                    <td><button type="button" class="btn btn-success btn-sm"> <a style="text-decoration: none;  color: #fff2ce" href="/article/{{ commentaire.id_article }}">Voir</a></button></td>
+                    <td><button type="button" class="btn btn-primary btn-sm"> <a style="text-decoration: none;  color: #fff2ce" href="/administration/commentaire-edit/{{ commentaire.id }}/{{ session.token }}">Modifier</a></button></td>
+                    <td><button type="button" class="btn btn-danger btn-sm"> <a style="text-decoration: none;  color: #fff2ce" href="/administration/commentaire-delete/{{ commentaire.id }}/{{ session.token }}">Suprimer</a></button></td>
+
+                </tr>
+                
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    <script type="text/javascript" src="/build/DataTables/datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('#myTable').DataTable({
+                language: { url: '/build/DataTables/Langue/French.json' } ,
+                "lengthMenu": [[10, 25, 50, 100 ], [10, 25, 50, 100 ]]
+            });
+            $('div.dataTables_filter input').attr('placeholder', 'Search...');
+        });
+    </script>
+{% endblock %}

@@ -19,6 +19,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
  */
 class FormContact extends Form
 {
+    /**
+     * @return \Symfony\Component\Form\FormInterface
+     */
     public function formContact()
     {
 
@@ -26,7 +29,6 @@ class FormContact extends Form
 
         $form = $formFactory->createBuilder()
             ->add('Nom', TextType::class, array(
-
                 'constraints' => array(
                     new NotBlank(array(
                         'message' => 'Cette valeur ne doit pas être vide.'
@@ -66,19 +68,23 @@ class FormContact extends Form
                 ))
             ))
             ->add('Message', TextareaType::class, array(
+                'help' => 'Votre message ne peut pas dépasser les 1000 caractères.',
+                'attr' => array('rows' => '4'),
                 'constraints' => array(
                     new NotBlank(array(
                         'message' => 'Cette valeur ne doit pas être vide.'
                     )),
                     new Length(array(
                         'min' => 1,
-                        'max' => 200,
+                        'max' => 1000,
                         'minMessage' => 'Votre message dois comporter au moins {{ limit }} caractères.',
                         'maxMessage' => 'Votre message ne peut pas dépasser les {{ limit }} caractères.'
                     ))
                 )
             ))
-            ->add('Envoyer', SubmitType::class)
+            ->add('Envoyer', SubmitType::class, array(
+                'attr' => array('class' => 'btn btn-primary float-right')
+            ))
             ->getForm();
 
         return $form;

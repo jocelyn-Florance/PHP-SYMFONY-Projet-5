@@ -1,17 +1,18 @@
 {% extends "base.html.twig" %}
 
 {%  block head %}
-    <title>Bonjour!</title>
+    <title>Article</title>
+    <meta name="description" content="">
+    <link rel="canonical" href="" />
 {% endblock %}
 
 {%  block body %}
 
-    {% if session.erreur == true %}
-        <p style="margin-top: 10px;" class="{{ session.erreur.type }} alert text-center">{{ session.erreur.content }}</p>
-    {% endif %}
-
     <div class="container">
 
+        {% if session.erreur == true %}
+            <p style="margin-top: 10px;" class="{{ session.erreur.type }} alert text-center">{{ session.erreur.content }} <i class="fa fa-spinner fa-spin" style="font-size:20px"></i> </p>
+        {% endif %}
 
     {% for article in article %}
 
@@ -45,35 +46,62 @@
     {% endfor %}
 
 
-    {% for comment in comment %}
+ {% if session.role == 'admin'  %}
 
-        {% if comment.valider == 1 %}
+       {% for comment in comment %}
 
-            <div style="margin-bottom: 15px;" class="card">
+            {% if comment.id >= 1 %}
+
+           <div style="margin-bottom: 15px;" class="card">
                 <div class="card-header">
-                    {{ comment.auteur }}
-
-                    {% if session.role == 'admin' %}
+                     {{ comment.auteur }}
                         <div class="dropdown show float-right">
                             <a class="btn btn-sm btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-cog"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="/administration/article-edit/{{ comment.id }}/{{ session.token }}">Modifier</a>
-                                <a class="dropdown-item" href="/administration/article-delete/{{ comment.id }}/{{ session.token }}">Suprimer</a>
+                                <a class="dropdown-item" href="/administration/commentaire-edit/{{ comment.id }}/{{ session.token }}">Modifier</a>
+                                <a class="dropdown-item" href="/administration/commentaire-delete/{{ comment.id }}/{{ session.token }}">Suprimer</a>
                             </div>
                         </div>
-                    {% endif %}
                 </div>
 
                 <div class="card-body">
+                  {% if comment.valider == 1 %}
                     <p class="card-text">{{ comment.contenu }}</p>
+                    {% else %}
+                    <p class="card-text">{{ comment.contenu }}</p>
+                        <p class="card-text alert alert-danger text-center">  Commentaire pas encore valider <i class="fas fa-exclamation-triangle"></i></p>
+                    {% endif %}
                 </div>
             </div>
 
-        {% endif %}
+           {% endif %}
 
-    {% endfor %}
+        {% endfor %}
+
+   {% else %}
+
+        {% for comment in comment %}
+
+            {% if comment.valider == 1 %}
+
+                <div style="margin-bottom: 15px;" class="card">
+                    <div class="card-header">
+                        {{ comment.auteur }}
+                    </div>
+
+                    <div class="card-body">
+                        <p class="card-text">{{ comment.contenu }}</p>
+                    </div>
+                </div>
+
+            {% endif %}
+
+        {% endfor %}
+
+{% endif %}
+
 
         <div style="margin-bottom: 150px;">
             <div class="card">
@@ -81,25 +109,14 @@
                     Laisser un commentaire
                 </div>
                 <div class="card-body">
-                    <form action="" method="POST">
-                        <div class="form-group">
-                            <label for="auteur">Auteur</label>
-                            <input type="text" class="form-control" name="auteur" id="auteur" placeholder="Auteur" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contenu">Contenu</label>
-                            <textarea class="form-control" name="contenu" id="contenu" aria-describedby="contenu" rows="3" required></textarea>
-                            <small id="contenu" class="form-text text-muted">
-                                Le contenu ne peut depasser 900 caracterer.
-                            </small>
-                        </div>
-                        <input type="hidden" name="formToken" value="{{ formToken }}">
-                        <button type="submit" class="btn btn-primary float-right">Envoyer</button>
-                    </form>
+
+                  {{ form_start(form) }}
+                  {{ form_widget(form) }}
+                  {{ form_end(form) }}
+
                 </div>
             </div>
         </div>
-
 
     </div>
 
