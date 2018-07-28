@@ -46,8 +46,8 @@ class FormCommentaire extends Form
                         'message' => 'La valeur {{ value }} n\'est pas un {{ type }} valide.'
                     )),
                     new Length(array(
-                        'min' => 10,
-                        'max' => 400,
+                        'min' => 1,
+                        'max' => 500,
                         'minMessage' => 'Votre contenu dois comporter au moins {{ limit }} caractères.',
                         'maxMessage' => 'Votre contenu ne peut pas dépasser les {{ limit }} caractères.'
                     ))

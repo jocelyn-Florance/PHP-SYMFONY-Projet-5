@@ -88,14 +88,14 @@ class Comment
      * @param $id
      */
     public function setId($id){
-        $this->id = (int) $id;
+        $this->id = (int) htmlspecialchars($id);
     }
 
     /**
      * @param $article
      */
     public function setId_article($article){
-        $this->id_article = (int) $article;
+        $this->id_article = (int) htmlspecialchars($article);
     }
 
     /**
@@ -104,7 +104,7 @@ class Comment
     public function setAuteur($auteur){
         if (is_string($auteur) && strlen($auteur) <= 30)
         {
-            $this->auteur = $auteur;
+            $this->auteur = htmlspecialchars($auteur);
         }
     }
 
@@ -121,7 +121,7 @@ class Comment
     public function setContenu($contenu){
         if (is_string($contenu) && strlen($contenu) <= 800)
         {
-            $this->contenu = $contenu;
+            $this->contenu = htmlspecialchars($contenu);
         }
     }
 
@@ -129,7 +129,7 @@ class Comment
      * @param $valider
      */
     public function setValider($valider){
-        $this->valider = (int) $valider;
+        $this->valider = (int) htmlspecialchars($valider);
     }
 
 }

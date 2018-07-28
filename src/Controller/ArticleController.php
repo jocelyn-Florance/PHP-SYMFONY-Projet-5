@@ -35,25 +35,17 @@ class ArticleController extends Controller
             if ($form->isValid()) {
 
                 $data = new Comment($form->getData());
-
                 $id_article = $data->id_article();
+                $auteur = $data->auteur();
+                $contenu = $data->contenu();
 
-                if($id == $id_article){
-                    $auteur = $data->auteur();
-                    $contenu = $data->contenu();
-                    $instanceRepo->AddCommentaire($id_article, $auteur, $contenu);
-                    $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Envoi du message en cour vous allez être redirigé'];
-                    header('Refresh: 3');
-                } else {
-                    $_SESSION['erreur'] = ['type' => 'alert-danger', 'content' => 'Une erreur ses produite'];
-                }
-
+                $instanceRepo->AddCommentaire($id_article, $auteur, $contenu, $id);
+                 header('Refresh: 3');
             }
         }
 
         $article[] = $instanceRepo->ArticleShow($id);
         $comment = $instanceRepo->CommentShow($id);
-
 
         echo $this->getTwig()->render('article.html.twig', [
             'session' => $_SESSION,

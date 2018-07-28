@@ -44,11 +44,8 @@ class EditCommentaireAdministrationController extends Controller
                     $contenu = $data->contenu();
                     $valider = $data->valider();
 
-
                     $instanceRepo = new AdministrationRepository();
                     $instanceRepo->EditeCommentaire($auteur, $contenu, $valider, $id);
-
-                    $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Commentaire modifier'];
                     header('Refresh: 3');
                 }
             }

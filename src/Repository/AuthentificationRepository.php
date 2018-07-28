@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Utilisateur;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Class AuthentificationRepository
@@ -10,10 +11,12 @@ use App\Entity\Utilisateur;
  */
 class AuthentificationRepository extends AbstractRepository
 {
+
     /**
      * @param $email
      * @param $password
-     * @return Utilisateur
+     * @return array|RedirectResponse
+     * @throws \Exception
      */
     public function getLogin($email, $password)
     {
@@ -23,11 +26,20 @@ class AuthentificationRepository extends AbstractRepository
 
         if($userExist === 1){
           $data = $getUser->fetch(\PDO::FETCH_ASSOC);
-
           $user = new Utilisateur($data);
 
-          return $user;
-        }
+            $token = random_bytes(15);
+            $token = bin2hex($token);
 
+            $_SESSION['token'] = $token;
+            $_SESSION['email'] = $user->email();
+            $_SESSION['prenon'] = $user->prenon();
+            $_SESSION['role'] = $user->role();
+
+            $response = new RedirectResponse('/administration/'. $token);
+            return $response->send();
+
+        }
+          return $_SESSION['erreur'] = ['type' => 'alert-danger', 'content' => 'Pas d\'utilisateur'];
     }
 }

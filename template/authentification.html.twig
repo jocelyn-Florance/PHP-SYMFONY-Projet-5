@@ -25,7 +25,7 @@
             <div class="card-body">
 
                 {% if session.erreur == true %}
-                    <p style="margin-top: 10px;" class="{{ session.erreur.type }} alert text-center">{{ session.erreur.content }}  </p>
+                    <p style="margin-top: 10px;" class="{{ session.erreur.type }} alert text-center"><strong>{{ session.erreur.content }}</strong> </p>
                 {% endif %}
 
                 {{ form_start(form) }}

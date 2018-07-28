@@ -95,8 +95,8 @@ class FormEditArticle extends Form
                         'message' => 'La valeur {{ value }} n\'est pas un {{ type }} valide.'
                     )),
                     new Length(array(
-                        'min' => 20,
-                        'max' => 1400,
+                        'min' => 1,
+                        'max' => 1500,
                         'minMessage' => 'Votre contenu dois comporter au moins {{ limit }} caractères.',
                         'maxMessage' => 'Votre contenu ne peut pas dépasser les {{ limit }} caractères.'
                     ))

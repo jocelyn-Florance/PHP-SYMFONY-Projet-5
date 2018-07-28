@@ -24,10 +24,8 @@ class RemoveArticleAdministrationController extends Controller
      */
     public function index(array $params)
     {
-
         $id = $params[0];
         $token = $params[1];
-
         $_SESSION['erreur'] = [];
 
         if(isset($_SESSION['role']) == 'admin' && isset($token) == $_SESSION['token']) {
@@ -42,17 +40,9 @@ class RemoveArticleAdministrationController extends Controller
                 $data = new Article($form->getData());
                 $titre = $data->titre();
 
-
                 $instanceRepo = new AdministrationRepository();
-                $errors =  $instanceRepo->RemoveArticle($titre, $id);
-
-                if($errors === 0){
-                    $_SESSION['erreur'] = ['type' => 'alert-danger', 'content' => 'Le titre et pas bon'];
-                }elseif ($errors === 1){
-                    $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Article suprimer'];
-                    header('Refresh: 3');
-                }
-
+                $instanceRepo->RemoveArticle($titre, $id);
+                header('Refresh: 3');
             }
         }
 

@@ -15,7 +15,7 @@
               </div>
 
         {% if session.erreur == true %}
-            <p style="margin-top: 10px;" class="{{ session.erreur.type }} alert text-center">{{ session.erreur.content }} <i class="fa fa-spinner fa-spin" style="font-size:20px"></i>  </p>
+            <p style="margin-top: 10px;" class="{{ session.erreur.type }} alert text-center"><strong>{{ session.erreur.content }}</strong> <i class="fa fa-spinner fa-spin" style="font-size:20px"></i>  </p>
         {% endif %}
 
     </div>

@@ -44,17 +44,13 @@ class AdministrationController extends Controller
                     $auteur = $data->auteur();
                     $contenu = $data->contenu();
 
-                     $instanceRepo->addArticle($titre, $chapo, $auteur, $contenu);
-
-                     $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Article ajouter'];
-                     header('Refresh: 3');
-
+                    $instanceRepo->addArticle($titre, $chapo, $auteur, $contenu);
+                    header('Refresh: 3');
                 }
             }
-
-        }else{
-            $response = new RedirectResponse('/404');
-            return $response->send();
+        } else {
+                $response = new RedirectResponse('/404');
+                return $response->send();
         }
 
         echo $this->getTwig()->render('Admin/administration.html.twig', array(

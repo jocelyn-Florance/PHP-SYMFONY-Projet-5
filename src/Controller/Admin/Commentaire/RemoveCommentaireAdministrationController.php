@@ -24,10 +24,8 @@ class RemoveCommentaireAdministrationController extends Controller
      */
     public function index(array $params)
     {
-
         $id = $params[0];
         $token = $params[1];
-
         $_SESSION['erreur'] = [];
 
         if(isset($_SESSION['role']) == 'admin' && isset($token) == $_SESSION['token']) {
@@ -43,15 +41,8 @@ class RemoveCommentaireAdministrationController extends Controller
                     $auteur = $data->auteur();
 
                     $instanceRepo = new AdministrationRepository();
-                    $errors =  $instanceRepo->RemoveCommentaire($auteur, $id);
-
-                    if($errors === 0){
-                        $_SESSION['erreur'] = ['type' => 'alert-danger', 'content' => 'Le nom de l\'auteur n\est pas bon'];
-                    }elseif ($errors === 1){
-                        $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Commentaire suprimer'];
-                        header('Refresh: 3');
-                    }
-
+                    $instanceRepo->RemoveCommentaire($auteur, $id);
+                    header('Refresh: 3');
                 }
             }
 
