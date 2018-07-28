@@ -28,11 +28,13 @@ class AdministrationRepository extends AbstractRepository
      * @param $chapo
      * @param $auteur
      * @param $contenu
+     * @return array
      */
     public function addArticle($titre, $chapo, $auteur, $contenu)
     {
         $article = $this->getBdd()->prepare('INSERT INTO articles (titre, chapo, contenu, auteur, articles.update) VALUES(?, ?, ?, ?, NOW()) ');
         $article->execute([$titre, $chapo, $contenu, $auteur]);
+        return $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Article ajouter'];
     }
 
     /**
@@ -41,17 +43,19 @@ class AdministrationRepository extends AbstractRepository
      * @param $contenu
      * @param $auteur
      * @param $id
+     * @return array
      */
     public function EditeArticle($titre, $chapo, $contenu, $auteur, $id)
     {
         $req = $this->getBdd()->prepare('UPDATE articles SET titre = ?, chapo = ?, contenu = ?, auteur = ?, articles.update = NOW() WHERE id = ?;');
         $req->execute(array($titre, $chapo, $contenu, $auteur, $id));
+        return $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Article modifier'];
     }
 
     /**
      * @param $titre
      * @param $id
-     * @return int
+     * @return array
      */
     public function RemoveArticle($titre, $id)
     {
@@ -62,8 +66,9 @@ class AdministrationRepository extends AbstractRepository
         if($result === 1){
             $req = $this->getBdd()->prepare('DELETE FROM articles WHERE id = ?');
             $req->execute(array($id));
+            return  $_SESSION['erreur'] = ['type' => 'alert-danger', 'content' => 'Le titre et pas bon'];
         }
-        return $result;
+        return  $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Article suprimer'];
     }
 
     /**
@@ -90,17 +95,19 @@ class AdministrationRepository extends AbstractRepository
      * @param $contenu
      * @param $valider
      * @param $id
+     * @return array
      */
     public function EditeCommentaire($auteur, $contenu, $valider, $id)
     {
         $req = $this->getBdd()->prepare('UPDATE commentaire SET auteur = ?, contenu = ?, valider = ?, commentaire.update = NOW() WHERE id = ?;');
         $req->execute(array($auteur, $contenu, $valider, $id));
+        return $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Commentaire modifier'];
     }
 
     /**
      * @param $auteur
      * @param $id
-     * @return int
+     * @return array
      */
     public function RemoveCommentaire($auteur, $id)
     {
@@ -111,8 +118,9 @@ class AdministrationRepository extends AbstractRepository
         if($result === 1){
             $req = $this->getBdd()->prepare('DELETE FROM commentaire WHERE id = ?');
             $req->execute(array($id));
+            return $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Commentaire suprimer'];
         }
-        return $result;
+       return $_SESSION['erreur'] = ['type' => 'alert-danger', 'content' => 'L\'auteur n\'est pas bon'];
     }
 
 }

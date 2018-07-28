@@ -36,7 +36,7 @@ class FormAuthentification extends Form
                     )),
                     new Length(array(
                         'min' => 5,
-                        'max' => 30,
+                        'max' => 50,
                         'minMessage' => 'Votre password dois comporter au moins {{ limit }} caractères.',
                         'maxMessage' => 'Votre password ne peut pas dépasser les {{ limit }} caractères.'
                     ))

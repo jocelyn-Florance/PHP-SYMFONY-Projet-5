@@ -47,8 +47,6 @@ class EditArticleAdministrationController extends Controller
 
                 $instanceRepo = new AdministrationRepository();
                 $instanceRepo->EditeArticle($titre, $chapo, $contenu, $auteur, $id);
-
-                $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Article modifier'];
                 header('Refresh: 3');
             }
         }

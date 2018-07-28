@@ -79,11 +79,17 @@ class ArticleRepository extends AbstractRepository
      * @param $id_article
      * @param $auteur
      * @param $contenu
+     * @param $id
+     * @return array
      */
-    public function AddCommentaire($id_article, $auteur, $contenu)
+    public function AddCommentaire($id_article, $auteur, $contenu, $id)
     {
-        $commentaire = $this->getBdd()->prepare('INSERT INTO commentaire (id_article, auteur, contenu, commentaire.update) VALUES(?, ?, ?, NOW())');
-        $commentaire->execute([$id_article, $auteur, $contenu]);
+        if($id == $id_article) {
+            $commentaire = $this->getBdd()->prepare('INSERT INTO commentaire (id_article, auteur, contenu, commentaire.update) VALUES(?, ?, ?, NOW())');
+            $commentaire->execute([$id_article, $auteur, $contenu]);
+            return  $_SESSION['erreur'] = ['type' => 'alert-success', 'content' => 'Envoi du message en cour vous allez être redirigé'];
+        }
+        return  $_SESSION['erreur'] = ['type' => 'alert-danger', 'content' => 'Une erreur ses produite'];
     }
 
 

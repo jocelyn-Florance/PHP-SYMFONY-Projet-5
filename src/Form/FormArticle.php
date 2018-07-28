@@ -44,7 +44,7 @@ class FormArticle extends Form
                     )),
                     new Length(array(
                         'min' => 2,
-                        'max' => 30,
+                        'max' => 50,
                         'minMessage' => 'Votre chapo dois comporter au moins {{ limit }} caractères.',
                         'maxMessage' => 'Votre chapo ne peut pas dépasser les {{ limit }} caractères.'
                     ))

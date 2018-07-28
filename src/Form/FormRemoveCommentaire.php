@@ -30,8 +30,8 @@ class FormRemoveCommentaire extends Form
                     new Length(array(
                         'min' => 2,
                         'max' => 20,
-                        'minMessage' => 'Votre titre dois comporter au moins {{ limit }} caractères.',
-                        'maxMessage' => 'Votre titre ne peut pas dépasser les {{ limit }} caractères.'
+                        'minMessage' => 'Auteur dois comporter au moins {{ limit }} caractères.',
+                        'maxMessage' => 'Auteur ne peut pas dépasser les {{ limit }} caractères.'
                     ))
                 )
             ))
